@@ -1,0 +1,48 @@
+{
+  "1": [
+    [1, "100.00", "140.00", "10.00", "130.00", "OVERPAID"],
+    [2, "50.00", "0", "0", "0", "UNPAID"],
+    [3, "50.00", "25.00", "0", "25.00", "PARTIALLY_PAID"],
+    [4, "50.00", "50.00", "60.00", "-10.00", "UNPAID"],
+    [5, "50.00", "0", "0", "0", "UNPAID"],
+    [6, "0", "0", "0", "0", "UNPAID"]
+  ],
+  "2": [
+    [1, "AFTER_CANCEL"],
+    [1, "DUPLICATE_SUCCESS"],
+    [1, "OVERPAYMENT"],
+    [4, "AFTER_CANCEL"],
+    [4, "DUPLICATE_SUCCESS"],
+    [4, "EXCESS_REFUND"]
+  ],
+  "3": [
+    [1, null, null, null, null, null, null],
+    [2, null, null, null, null, null, null],
+    [3, null, null, null, null, null, null]
+  ],
+  "4": [
+    [1, "25.00", "25.00", "MATCH"],
+    [2, "50.00", null, "MISSING"],
+    [3, "50.00", "25.00", "MISMATCH"],
+    [4, "50.00", "25.00", "MISMATCH"],
+    [5, "50.00", "75.00", "MISMATCH"],
+    [6, "50.00", "75.00", "MISMATCH"]
+  ],
+  "5": [
+    [1, "2024-03-01T00:00:00+00:00", null, null, null, null, null, null, null, 0],
+    [2, null, null, null, null, null, null, null, null, 0],
+    [3, null, null, null, null, null, null, null, null, 0],
+    [4, null, null, null, null, null, null, null, null, 0],
+    [5, null, null, null, null, null, null, null, null, 0],
+    [6, null, null, null, null, null, null, null, null, 0]
+  ],
+  "6": [],
+  "7": [
+    [1, "0", "0.000000", "0.000000", "C"],
+    [2, "0", "0.000000", "0.000000", "C"]
+  ],
+  "8": [
+    [1, 4, "150.00"],
+    [2, 1, "50.00"]
+  ]
+}

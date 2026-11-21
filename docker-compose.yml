@@ -1,0 +1,70 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: market
+      POSTGRES_PASSWORD: local-practice
+      TZ: UTC
+    volumes:
+      - practice:/var/lib/postgresql/data
+      - ./database:/work/database:ro
+      - ./solutions:/work/solutions:ro
+      - ./database/bootstrap.sql:/docker-entrypoint-initdb.d/01-market.sql:ro
+    network_mode: none
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "market", "-h", "127.0.0.1"]
+      interval: 2s
+      timeout: 3s
+      retries: 60
+
+  sandbox:
+    profiles: [check]
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: local-check-only
+      POSTGRES_INITDB_ARGS: "--auth-local=scram-sha-256"
+      TZ: UTC
+    command: ["postgres", "-c", "listen_addresses=", "-c", "max_connections=16", "-c", "temp_file_limit=64MB", "-c", "max_parallel_workers_per_gather=0"]
+    network_mode: none
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 96
+    tmpfs:
+      - /var/lib/postgresql/data:size=256m
+    volumes:
+      - socket:/var/run/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "test \"$$(head -1 /var/lib/postgresql/data/postmaster.pid)\" = 1 && pg_isready -U postgres"]
+      interval: 2s
+      timeout: 3s
+      retries: 60
+
+  check:
+    profiles: [check]
+    build: .
+    environment:
+      PGHOST: /var/run/postgresql
+      PGUSER: postgres
+      PGPASSWORD: local-check-only
+      PGDATABASE: postgres
+    depends_on:
+      sandbox:
+        condition: service_healthy
+    network_mode: none
+    read_only: true
+    mem_limit: 384m
+    cpus: 1
+    tmpfs:
+      - /tmp:size=32m
+    volumes:
+      - socket:/var/run/postgresql
+      - ./database:/work/database:ro
+      - ./grader:/work/grader:ro
+      - ./tests:/work/tests:ro
+      - ./solutions:/work/solutions:ro
+      - ./README.md:/work/README.md:ro
+      - ./reports:/work/reports
+
+volumes:
+  practice:
+  socket:

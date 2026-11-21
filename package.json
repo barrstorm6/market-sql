@@ -1,0 +1,29 @@
+{
+  "name": "market-sql",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Практикум по аналитическому SQL для PostgreSQL",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "plan:before": "node scripts/lab.js plan:before",
+    "plan:after": "node scripts/lab.js plan:after",
+    "up": "node scripts/lab.js up",
+    "down": "node scripts/lab.js down",
+    "seed": "node scripts/lab.js seed",
+    "reset": "node scripts/lab.js reset",
+    "perf": "node scripts/lab.js perf",
+    "sql": "node scripts/lab.js sql",
+    "test": "node scripts/lab.js test",
+    "test-public": "node scripts/lab.js test-public",
+    "grade": "node scripts/lab.js grade",
+    "report": "node scripts/lab.js report"
+  },
+  "dependencies": {
+    "libpg-query": "16.8.3",
+    "pg": "^8.16.0",
+    "pg-cursor": "^2.15.0"
+  }
+}
